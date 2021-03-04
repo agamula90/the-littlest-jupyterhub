@@ -277,17 +277,24 @@ def ensure_user_environment(user_requirements_txt_file):
             conda.install_miniconda(installer_path, USER_ENV_PREFIX)
         conda_version = '4.8.1'
 
+    logger.info('Before ensure conda packages...')
+
     conda.ensure_conda_packages(USER_ENV_PREFIX, [
         # Conda's latest version is on conda much more so than on PyPI.
         'conda==' + conda_version
     ])
+
+    logger.info('After ensure conda packages...')
 
     conda.ensure_pip_requirements(
         USER_ENV_PREFIX,
         os.path.join(HERE, 'requirements-base.txt'),
     )
 
+    logger.info('After ensure pip requirements...')
+
     if user_requirements_txt_file:
+        logger.info('Running user_requirements...')
         # FIXME: This currently fails hard, should fail soft and not abort installer
         conda.ensure_pip_requirements(USER_ENV_PREFIX, user_requirements_txt_file)
 
