@@ -178,6 +178,9 @@ def ensure_jupyterlab_extensions():
     install_options = [
         '--no-build'   # do not build extension at install time. Will build later
     ]
+
+    logger.info("before labextensions")
+
     utils.run_subprocess([
         os.path.join(USER_ENV_PREFIX, 'bin/jupyter'),
         'labextension',
@@ -190,11 +193,15 @@ def ensure_jupyterlab_extensions():
         '--dev-build=False'
     ]
 
+    logger.info("after labextensions")
+
     utils.run_subprocess([
         os.path.join(USER_ENV_PREFIX, 'bin/jupyter'),
         'lab',
         'build'
     ] + build_options)
+
+    logger.info("after lab build")
 
 
 def ensure_jupyterhub_package(prefix):
