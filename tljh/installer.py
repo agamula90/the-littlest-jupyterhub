@@ -190,11 +190,15 @@ def ensure_jupyterlab_extensions():
         '--dev-build=False'
     ]
 
+    logger.info("after labextensions")
+
     utils.run_subprocess([
         os.path.join(USER_ENV_PREFIX, 'bin/jupyter'),
         'lab',
         'build'
     ] + build_options)
+
+    logger.info("after lab build")
 
 
 def ensure_jupyterhub_package(prefix):
@@ -273,15 +277,14 @@ def ensure_user_environment(user_requirements_txt_file):
             conda.install_miniconda(installer_path, USER_ENV_PREFIX)
         conda_version = '4.8.1'
 
-    conda.ensure_conda_packages(USER_ENV_PREFIX, [
-        # Conda's latest version is on conda much more so than on PyPI.
-        'conda==' + conda_version
-    ])
+    logger.info('Before ensure pip requirements...')
 
     conda.ensure_pip_requirements(
         USER_ENV_PREFIX,
         os.path.join(HERE, 'requirements-base.txt'),
     )
+
+    logger.info('After ensure pip requirements...')
 
     if user_requirements_txt_file:
         # FIXME: This currently fails hard, should fail soft and not abort installer
