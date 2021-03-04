@@ -279,14 +279,7 @@ def ensure_user_environment(user_requirements_txt_file):
             conda.install_miniconda(installer_path, USER_ENV_PREFIX)
         conda_version = '4.8.1'
 
-    logger.info('Before ensure conda packages...')
-
-    conda.ensure_conda_packages(USER_ENV_PREFIX, [
-        # Conda's latest version is on conda much more so than on PyPI.
-        'conda==' + conda_version
-    ])
-
-    logger.info('After ensure conda packages...')
+    logger.info('Before ensure pip requirements...')
 
     conda.ensure_pip_requirements(
         USER_ENV_PREFIX,
