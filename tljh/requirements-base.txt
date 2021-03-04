@@ -14,4 +14,4 @@ nbresuse==0.3.*
 # Most people consider ipywidgets to be part of the core notebook experience
 ipywidgets==7.5.*
 # Pin tornado
-tornado<6
+tornado=6.*
